@@ -1,13 +1,21 @@
-const form = document.getElementById("form");
+const colourForm = document.getElementById("colourForm");
 
-form.addEventListener("submit", function (event) {
-  const formData = new FormData(event.target);
-  const colour = formData.get("colour");
-  localStorage.setItem("colour", colour);
-});
-
-const colour = localStorage.getItem("colour");
-if (colour) {
-  const input = document.querySelector("input");
-  input.value = colour;
+function changeBg(col) {
+  document.body.style.backgroundColor = col;
 }
+
+function handleSubmit(event) {
+  event.preventDefault();
+  const myColour = event.target.colour.value;
+  changeBg(myColour);
+  localStorage.setItem("localColour", myColour);
+}
+
+colourForm.addEventListener("submit", handleSubmit);
+
+function getColour() {
+  const localColour = localStorage.getItem("localColour");
+  changeBg(localColour);
+}
+
+getColour();
